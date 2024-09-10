@@ -45,3 +45,7 @@ flutter:
     - assets/images/cat/
     - assets/images/landing/
     - assets/images/offres/
+
+flutter_gen:
+  output: lib/ui/generated_asset/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
