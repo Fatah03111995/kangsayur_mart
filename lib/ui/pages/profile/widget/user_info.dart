@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kangsayur_mart/core/models/item_menu.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
@@ -11,10 +10,6 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ItemMenu> items = [
-      const ItemMenu(name: 'Address', icon: CupertinoIcons.pin),
-      const ItemMenu(name: 'Password', icon: CupertinoIcons.lock),
-    ];
     return Card(
       child: Column(
         children: [
@@ -88,13 +83,56 @@ class UserInfo extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.h),
-          ...List.generate(items.length, (index) {
-            return ListTile(
-              leading: Icon(items[index].icon),
-              title: Text(items[index].name),
-              onTap: items[index].onTap,
-            );
-          })
+
+          //-------------- ADDRESS
+          ListTile(
+            leading: Icon(
+              CupertinoIcons.map_pin,
+              color: Theme.of(context).myColorTxt,
+            ),
+            title: Text(
+              'Address',
+              style:
+                  TextStyles.sm.copyWith(color: Theme.of(context).myColorTxt),
+            ),
+            subtitle: Text(
+              'Perumahan Grand Cibening Residence Blok A1 No3, Kel. Cibening, Kec. Setu, Kab.Bekasi',
+              style: TextStyles.s.copyWith(
+                color: Theme.of(context).myColorTxt,
+              ),
+            ),
+            trailing: Icon(
+              CupertinoIcons.right_chevron,
+              color: Theme.of(context).myColorTxt,
+            ),
+            onTap: () async {
+              await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      icon: Icon(CupertinoIcons.map_pin),
+                      title: Text('Edit Address'),
+                      content: TextField(),
+                      actions: [
+                        TextButton(onPressed: () {}, child: Text('Update'))
+                      ],
+                    );
+                  });
+            },
+          ),
+
+          //-------------- PASSWORD
+          ListTile(
+            leading: Icon(
+              CupertinoIcons.lock,
+              color: Theme.of(context).myColorTxt,
+            ),
+            title: Text(
+              'Change Password',
+              style:
+                  TextStyles.sm.copyWith(color: Theme.of(context).myColorTxt),
+            ),
+          ),
         ],
       ),
     );
