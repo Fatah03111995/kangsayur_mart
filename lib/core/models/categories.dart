@@ -9,9 +9,9 @@ enum Categories {
 }
 
 Map<Categories, AssetGenImage> dataCategories = {
-  Categories.fruits: Assets.images.cat.fruits,
-  Categories.grains: Assets.images.cat.grains,
-  Categories.nuts: Assets.images.cat.nuts,
-  Categories.spices: Assets.images.cat.spices,
-  Categories.vegtables: Assets.images.cat.veg,
+  Categories.fruits: Assets.images.category.fruits,
+  Categories.grains: Assets.images.category.grains,
+  Categories.nuts: Assets.images.category.nuts,
+  Categories.spices: Assets.images.category.spices,
+  Categories.vegtables: Assets.images.category.veg,
 };

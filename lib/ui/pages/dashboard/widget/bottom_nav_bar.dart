@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kangsayur_mart/core/bloc/dashboard/dashboard_cubit.dart';
 import 'package:kangsayur_mart/core/bloc/dashboard/dashboard_state.dart';
 import 'package:kangsayur_mart/core/models/item_menu.dart';
+import 'package:kangsayur_mart/core/models/page_entity.dart';
+import 'package:kangsayur_mart/core/routes/app_route.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
@@ -26,7 +27,7 @@ class BottomNavBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: List.generate(listNavBarMenu.length, (index) {
+        children: List.generate(AppRoute.dashboardPageEntities.length, (index) {
           return BlocBuilder<DashboardCubit, DashboardState>(
             builder: (context, state) {
               bool isActive = state.index == index;
@@ -50,7 +51,7 @@ class BottomNavBar extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          listNavBarMenu[index].icon,
+                          AppRoute.dashboardPageEntities[index].icon,
                           color: isActive
                               ? Theme.of(context).myColorTxt
                               : Colors.grey,
@@ -58,7 +59,7 @@ class BottomNavBar extends StatelessWidget {
                         ),
                         if (isActive)
                           Text(
-                            listNavBarMenu[index].name,
+                            AppRoute.dashboardPageEntities[index].name,
                             style: TextStyles.s.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).myColorTxt,
@@ -76,11 +77,3 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 }
-
-List<ItemMenu> listNavBarMenu = const [
-  ItemMenu(name: 'Home', icon: CupertinoIcons.home),
-  ItemMenu(name: 'Search', icon: CupertinoIcons.search),
-  ItemMenu(name: 'Whislist', icon: Icons.favorite),
-  ItemMenu(name: 'Cart', icon: CupertinoIcons.cart),
-  ItemMenu(name: 'Profile', icon: CupertinoIcons.profile_circled),
-];

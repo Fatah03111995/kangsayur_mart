@@ -10,7 +10,7 @@ extension MyTheme on ThemeData {
   Color get myColorTxtSecondary =>
       brightness == Brightness.dark ? MyColor.dark900 : MyColor.dark100;
   Color get myColorContainer =>
-      brightness == Brightness.dark ? MyColor.dark700 : Colors.white;
+      brightness == Brightness.dark ? MyColor.dark800 : Colors.white;
   Color get myColorButton => MyColor.blue1;
   Color get myColorButtonSecondary =>
       brightness == Brightness.dark ? MyColor.dark700 : MyColor.dark100;
