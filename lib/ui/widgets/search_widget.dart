@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
+import 'package:kangsayur_mart/ui/pages/search/search_page.dart';
 import 'package:kangsayur_mart/ui/widgets/input_text.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -25,7 +26,10 @@ class _SearchWidgetState extends State<SearchWidget> {
       hint: 'Search...',
       controller: _searchController,
       suffixIcon: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SearchPage()));
+        },
         child: Icon(
           CupertinoIcons.search,
           color: Theme.of(context).myColorTxt,

@@ -1,19 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kangsayur_mart/ui/pages/search/widget/search_filter.dart';
+import 'package:kangsayur_mart/core/themes/my_color.dart';
+import 'package:kangsayur_mart/core/themes/my_theme.dart';
+import 'package:kangsayur_mart/core/themes/text_styles.dart';
+import 'package:kangsayur_mart/ui/pages/cart/cart_page.dart';
+import 'package:kangsayur_mart/ui/widgets/filter_widget.dart';
+import 'package:kangsayur_mart/ui/widgets/search_widget.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: const Column(
+    return Scaffold(
+      backgroundColor: Theme.of(context).myColorScaffoldBg,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).myColorScaffoldBg,
+        title: Row(
           children: [
-            SearchFilter(),
+            Expanded(
+                child: SizedBox(height: 40.w, child: const SearchWidget())),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CartPage()));
+                },
+                icon: Badge(
+                  label: Text(
+                    '0',
+                    style: TextStyles.xs.copyWith(color: Colors.white),
+                  ),
+                  child: Icon(
+                    CupertinoIcons.cart,
+                    color: Theme.of(context).myColorTxt,
+                  ),
+                ))
           ],
-        ));
+        ),
+      ),
+      body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: const Column(
+            children: [
+              FilterWidget(),
+            ],
+          )),
+    );
   }
 }

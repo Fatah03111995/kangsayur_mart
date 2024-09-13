@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
@@ -18,38 +19,65 @@ class CardProduct extends StatelessWidget {
         child: Column(
           children: [
             Assets.images.category.nuts.image(height: 90, fit: BoxFit.cover),
-            Text('Bijii Kacang Ijo Guys'),
+            Text(
+              'Bijii Kacang Ijo Guys, Mantap pokonya',
+              textAlign: TextAlign.center,
+              style: TextStyles.s.copyWith(
+                  color: Theme.of(context).myColorTxt,
+                  fontWeight: FontWeight.w400),
+            ),
+            Divider(
+              indent: 10.w,
+              endIndent: 10.w,
+              thickness: 1.5.sp,
+              color: Theme.of(context).myColorTxt.withOpacity(0.1),
+            ),
             Expanded(
-              child: Stack(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Rp 10.000,- ',
+                    'Rp 10.000,- / kg',
                     style: TextStyles.sm.copyWith(
                       color: Theme.of(context).myColorTxt.withOpacity(0.2),
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
-                  Positioned(
-                      top: 10,
-                      left: 15,
-                      child: Text(
-                        'Rp 5.000,-',
-                        style: TextStyles.sm.copyWith(
-                            color: Colors.red, fontWeight: FontWeight.w700),
-                      )),
+                  Text(
+                    'Rp 5.000,- / kg',
+                    style: TextStyles.sm.copyWith(
+                        color: Theme.of(context).myColorTxt,
+                        fontWeight: FontWeight.w700),
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 5.h),
-            RoundedRectangleButton(
-                height: 30.h,
-                onTap: () {},
-                child: Text(
-                  'ORDER',
-                  style: TextStyles.s.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Expanded(
+                  child: RoundedRectangleButton(
+                      height: 30.h,
+                      onTap: () {},
+                      color: MyColor.blue1,
+                      child: const Icon(
+                        CupertinoIcons.cart,
+                        color: Colors.white,
+                      )),
                 ),
-                color: MyColor.blue1)
+                Expanded(
+                  child: RoundedRectangleButton(
+                    height: 30.h,
+                    onTap: () {},
+                    color: Theme.of(context).myColorContainer,
+                    child: Icon(
+                      Icons.favorite,
+                      color: Colors.grey.withOpacity(0.5),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

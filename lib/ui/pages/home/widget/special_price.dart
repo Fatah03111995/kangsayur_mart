@@ -18,7 +18,7 @@ class SpecialPrice extends StatelessWidget {
     ];
     return SliverToBoxAdapter(
       child: Container(
-        height: 170.h,
+        height: 200.h,
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.h),
         margin: EdgeInsets.symmetric(horizontal: 6.h),
         clipBehavior: Clip.hardEdge,

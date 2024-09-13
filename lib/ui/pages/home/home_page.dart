@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
+import 'package:kangsayur_mart/ui/pages/cart/cart_page.dart';
 import 'package:kangsayur_mart/ui/pages/home/widget/landing.dart';
 import 'package:kangsayur_mart/ui/pages/home/widget/special_price.dart';
 import 'package:kangsayur_mart/ui/widgets/card_product.dart';
@@ -29,7 +30,12 @@ class HomePage extends StatelessWidget {
               Expanded(
                   child: SizedBox(height: 40.w, child: const SearchWidget())),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CartPage()));
+                  },
                   icon: Badge(
                     label: Text(
                       '0',
@@ -82,10 +88,11 @@ class HomePage extends StatelessWidget {
             SliverGrid.builder(
                 itemCount: 16,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    childAspectRatio: 0.9),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
+                  childAspectRatio: 0.7,
+                ),
                 itemBuilder: (context, index) {
                   return const CardProduct();
                 })
