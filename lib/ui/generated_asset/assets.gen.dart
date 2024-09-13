@@ -25,8 +25,8 @@ class $AssetsImagesGen {
   /// File path: assets/images/cart.png
   AssetGenImage get cart => const AssetGenImage('assets/images/cart.png');
 
-  /// Directory path: assets/images/cat
-  $AssetsImagesCatGen get cat => const $AssetsImagesCatGen();
+  /// Directory path: assets/images/category
+  $AssetsImagesCategoryGen get category => const $AssetsImagesCategoryGen();
 
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
@@ -37,8 +37,8 @@ class $AssetsImagesGen {
   /// Directory path: assets/images/landing
   $AssetsImagesLandingGen get landing => const $AssetsImagesLandingGen();
 
-  /// Directory path: assets/images/offres
-  $AssetsImagesOffresGen get offres => const $AssetsImagesOffresGen();
+  /// Directory path: assets/images/offers
+  $AssetsImagesOffersGen get offers => const $AssetsImagesOffersGen();
 
   /// File path: assets/images/warning-sign.png
   AssetGenImage get warningSign =>
@@ -53,30 +53,32 @@ class $AssetsImagesGen {
       [addToCart, basket, box, cart, google, history, warningSign, wishlist];
 }
 
-class $AssetsImagesCatGen {
-  const $AssetsImagesCatGen();
+class $AssetsImagesCategoryGen {
+  const $AssetsImagesCategoryGen();
 
-  /// File path: assets/images/cat/Spinach.png
+  /// File path: assets/images/category/Spinach.png
   AssetGenImage get spinach =>
-      const AssetGenImage('assets/images/cat/Spinach.png');
+      const AssetGenImage('assets/images/category/Spinach.png');
 
-  /// File path: assets/images/cat/fruits.png
+  /// File path: assets/images/category/fruits.png
   AssetGenImage get fruits =>
-      const AssetGenImage('assets/images/cat/fruits.png');
+      const AssetGenImage('assets/images/category/fruits.png');
 
-  /// File path: assets/images/cat/grains.png
+  /// File path: assets/images/category/grains.png
   AssetGenImage get grains =>
-      const AssetGenImage('assets/images/cat/grains.png');
+      const AssetGenImage('assets/images/category/grains.png');
 
-  /// File path: assets/images/cat/nuts.png
-  AssetGenImage get nuts => const AssetGenImage('assets/images/cat/nuts.png');
+  /// File path: assets/images/category/nuts.png
+  AssetGenImage get nuts =>
+      const AssetGenImage('assets/images/category/nuts.png');
 
-  /// File path: assets/images/cat/spices.png
+  /// File path: assets/images/category/spices.png
   AssetGenImage get spices =>
-      const AssetGenImage('assets/images/cat/spices.png');
+      const AssetGenImage('assets/images/category/spices.png');
 
-  /// File path: assets/images/cat/veg.png
-  AssetGenImage get veg => const AssetGenImage('assets/images/cat/veg.png');
+  /// File path: assets/images/category/veg.png
+  AssetGenImage get veg =>
+      const AssetGenImage('assets/images/category/veg.png');
 
   /// List of all assets
   List<AssetGenImage> get values =>
@@ -115,24 +117,24 @@ class $AssetsImagesLandingGen {
       [buyOnLaptop, buyThrough, buyfood, groceryCart, store, vergtablebg];
 }
 
-class $AssetsImagesOffresGen {
-  const $AssetsImagesOffresGen();
+class $AssetsImagesOffersGen {
+  const $AssetsImagesOffersGen();
 
-  /// File path: assets/images/offres/Offer1.jpg
+  /// File path: assets/images/offers/Offer1.jpg
   AssetGenImage get offer1 =>
-      const AssetGenImage('assets/images/offres/Offer1.jpg');
+      const AssetGenImage('assets/images/offers/Offer1.jpg');
 
-  /// File path: assets/images/offres/Offer2.jpg
+  /// File path: assets/images/offers/Offer2.jpg
   AssetGenImage get offer2 =>
-      const AssetGenImage('assets/images/offres/Offer2.jpg');
+      const AssetGenImage('assets/images/offers/Offer2.jpg');
 
-  /// File path: assets/images/offres/Offer3.jpg
+  /// File path: assets/images/offers/Offer3.jpg
   AssetGenImage get offer3 =>
-      const AssetGenImage('assets/images/offres/Offer3.jpg');
+      const AssetGenImage('assets/images/offers/Offer3.jpg');
 
-  /// File path: assets/images/offres/Offer4.jpg
+  /// File path: assets/images/offers/Offer4.jpg
   AssetGenImage get offer4 =>
-      const AssetGenImage('assets/images/offres/Offer4.jpg');
+      const AssetGenImage('assets/images/offers/Offer4.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [offer1, offer2, offer3, offer4];
