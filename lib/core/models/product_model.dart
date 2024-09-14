@@ -1,15 +1,24 @@
+import 'package:kangsayur_mart/core/models/categories.dart';
+
 class ProductModel {
-  final String id, title, imageUrl, productCategoryName;
-  final double price, salePrice;
-  final bool isOnSale, isPiece;
+  final String productId;
+  final String name;
+  final String description;
+  final String imageUrl;
+  final Categories category;
+  final double price;
+  final double salePrice;
+  final double stock;
+  final bool isOnSale;
 
   ProductModel(
-      {required this.id,
-      required this.title,
+      {required this.productId,
+      required this.name,
+      required this.description,
       required this.imageUrl,
-      required this.productCategoryName,
+      required this.category,
       required this.price,
       required this.salePrice,
-      required this.isOnSale,
-      required this.isPiece});
+      required this.stock,
+      required this.isOnSale});
 }
