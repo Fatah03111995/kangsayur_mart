@@ -7,18 +7,21 @@ class ProductModel {
   final String imageUrl;
   final Categories category;
   final double price;
-  final double salePrice;
+  final double? salePrice;
   final double stock;
   final bool isOnSale;
+  final String unit;
 
-  ProductModel(
-      {required this.productId,
-      required this.name,
-      required this.description,
-      required this.imageUrl,
-      required this.category,
-      required this.price,
-      required this.salePrice,
-      required this.stock,
-      required this.isOnSale});
+  ProductModel({
+    required this.productId,
+    required this.name,
+    required this.description,
+    required this.imageUrl,
+    required this.category,
+    required this.price,
+    this.salePrice,
+    required this.stock,
+    this.isOnSale = false,
+    this.unit = 'Kg',
+  });
 }
