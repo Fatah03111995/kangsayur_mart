@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kangsayur_mart/core/data/dummy.dart';
+import 'package:kangsayur_mart/core/models/product_model.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
-import 'package:kangsayur_mart/ui/generated_asset/assets.gen.dart';
 import 'package:kangsayur_mart/ui/widgets/card_product_sale.dart';
 
 class SpecialPrice extends StatelessWidget {
   const SpecialPrice({super.key});
   @override
   Widget build(BuildContext context) {
-    List<AssetGenImage> asset = [
-      Assets.images.category.nuts,
-      Assets.images.category.nuts,
-      Assets.images.category.nuts,
-      Assets.images.category.nuts,
-      Assets.images.category.nuts,
-    ];
+    List<ProductModel> data =
+        Dummy.productsList.where((product) => product.isOnSale).toList();
     return SliverToBoxAdapter(
       child: Container(
         height: 200.h,
@@ -38,9 +34,11 @@ class SpecialPrice extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: asset.length,
+                  itemCount: data.length,
                   itemBuilder: (context, index) {
-                    return const CardProductSale();
+                    return CardProductSale(
+                      product: data[index],
+                    );
                   }),
             ),
           ],

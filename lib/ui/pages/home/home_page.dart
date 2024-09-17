@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kangsayur_mart/core/bloc/product/product_bloc.dart';
+import 'package:kangsayur_mart/core/bloc/product/product_state.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
@@ -85,17 +88,46 @@ class HomePage extends StatelessWidget {
               ),
             )),
             SliverToBoxAdapter(child: SizedBox(height: 15.h)),
-            SliverGrid.builder(
-                itemCount: 16,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                  childAspectRatio: 0.7,
-                ),
-                itemBuilder: (context, index) {
-                  return const CardProduct();
-                })
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return SliverToBoxAdapter(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: MyColor.blue1,
+                      ),
+                    ),
+                  );
+                }
+
+                if (state is ProductLoaded && state.listProducts.isNotEmpty) {
+                  return SliverGrid.builder(
+                      itemCount: state.listProducts.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 0.7,
+                      ),
+                      itemBuilder: (context, index) {
+                        return CardProduct(
+                          product: state.listProducts[index],
+                        );
+                      });
+                }
+
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      'No Data Here',
+                      style: TextStyles.ml
+                          .copyWith(color: Theme.of(context).myColorTxt),
+                    ),
+                  ),
+                );
+              },
+            )
           ],
         ));
   }

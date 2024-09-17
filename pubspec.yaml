@@ -42,7 +42,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/images/dummy/
+    - assets/dummy/
     - assets/images/category/
     - assets/images/landing/
     - assets/images/offers/

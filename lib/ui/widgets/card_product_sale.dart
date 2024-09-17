@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kangsayur_mart/core/models/product_model.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
-import 'package:kangsayur_mart/ui/generated_asset/assets.gen.dart';
 
 class CardProductSale extends StatelessWidget {
-  const CardProductSale({super.key});
+  final ProductModel product;
+  const CardProductSale({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 130,
       child: Card(
+        clipBehavior: Clip.hardEdge,
         color: Theme.of(context).myColorContainer,
         child: Column(
           children: [
-            Assets.images.category.nuts.image(height: 70, fit: BoxFit.cover),
+            Image.asset(product.imageUrl,
+                width: 130, height: 70, fit: BoxFit.cover),
             Row(
               children: [
                 Expanded(

@@ -1,30 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kangsayur_mart/core/models/product_model.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
-import 'package:kangsayur_mart/ui/generated_asset/assets.gen.dart';
 import 'package:kangsayur_mart/ui/widgets/rounded_rectangle_button.dart';
 
 class CardProduct extends StatelessWidget {
-  const CardProduct({super.key});
+  final ProductModel product;
+  const CardProduct({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 170,
       child: Card(
+        clipBehavior: Clip.hardEdge,
         color: Theme.of(context).myColorContainer,
         child: Column(
           children: [
-            Assets.images.category.nuts.image(height: 90, fit: BoxFit.cover),
+            Image.asset(
+              product.imageUrl,
+              width: 170,
+              height: 90,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 5.h),
             Text(
-              'Bijii Kacang Ijo Guys, Mantap pokonya',
+              product.name,
               textAlign: TextAlign.center,
-              style: TextStyles.s.copyWith(
+              style: TextStyles.sm.copyWith(
                   color: Theme.of(context).myColorTxt,
-                  fontWeight: FontWeight.w400),
+                  fontWeight: FontWeight.bold),
             ),
             Divider(
               indent: 10.w,
@@ -36,19 +44,33 @@ class CardProduct extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Rp 10.000,- / kg',
-                    style: TextStyles.sm.copyWith(
-                      color: Theme.of(context).myColorTxt.withOpacity(0.2),
-                      decoration: TextDecoration.lineThrough,
+                  if (product.isOnSale)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Rp ${product.price},- / ${product.unit}',
+                          style: TextStyles.sm.copyWith(
+                            color:
+                                Theme.of(context).myColorTxt.withOpacity(0.2),
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                        Text(
+                          'Rp ${product.salePrice},- / ${product.unit}',
+                          style: TextStyles.sm.copyWith(
+                              color: Theme.of(context).myColorTxt,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    'Rp 5.000,- / kg',
-                    style: TextStyles.sm.copyWith(
-                        color: Theme.of(context).myColorTxt,
-                        fontWeight: FontWeight.w700),
-                  ),
+                  if (!product.isOnSale)
+                    Text(
+                      'Rp ${product.price},- / ${product.unit}',
+                      style: TextStyles.sm.copyWith(
+                          color: Theme.of(context).myColorTxt,
+                          fontWeight: FontWeight.w700),
+                    ),
                 ],
               ),
             ),
