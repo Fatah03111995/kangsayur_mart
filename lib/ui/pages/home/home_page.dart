@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kangsayur_mart/core/bloc/filter/filter_bloc.dart';
 import 'package:kangsayur_mart/core/bloc/product/product_bloc.dart';
 import 'package:kangsayur_mart/core/bloc/product/product_state.dart';
+import 'package:kangsayur_mart/core/models/product_model.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
@@ -71,26 +73,16 @@ class HomePage extends StatelessWidget {
                               color: Theme.of(context).myColorTxt,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 5.h),
+                        SizedBox(height: 10.h),
                         const FilterWidget(),
                       ],
                     )),
               ),
             ),
             SliverToBoxAdapter(child: SizedBox(height: 15.h)),
-            SliverToBoxAdapter(
-                child: Text(
-              'Our Products',
-              textAlign: TextAlign.center,
-              style: TextStyles.sm.copyWith(
-                color: Theme.of(context).myColorTxt,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-            SliverToBoxAdapter(child: SizedBox(height: 15.h)),
             BlocBuilder<ProductBloc, ProductState>(
-              builder: (context, state) {
-                if (state is ProductLoading) {
+              builder: (context, productState) {
+                if (productState is ProductLoading) {
                   return SliverToBoxAdapter(
                     child: Center(
                       child: CircularProgressIndicator(
@@ -100,21 +92,49 @@ class HomePage extends StatelessWidget {
                   );
                 }
 
-                if (state is ProductLoaded && state.listProducts.isNotEmpty) {
-                  return SliverGrid.builder(
-                      itemCount: state.listProducts.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 5,
-                        crossAxisSpacing: 5,
-                        childAspectRatio: 0.7,
-                      ),
-                      itemBuilder: (context, index) {
-                        return CardProduct(
-                          product: state.listProducts[index],
-                        );
-                      });
+                if (productState is ProductLoaded &&
+                    productState.listProducts.isNotEmpty) {
+                  return BlocBuilder<FilterBloc, FilterState>(
+                    builder: (context, filterState) {
+                      List<ProductModel> filteredProduct = [];
+                      if (filterState.selectedCategories.isEmpty) {
+                        filteredProduct = [...productState.listProducts];
+                      } else {
+                        filteredProduct = [
+                          ...productState.listProducts.where((product) =>
+                              filterState.selectedCategories
+                                  .contains(product.category))
+                        ];
+                      }
+                      if (filteredProduct.isNotEmpty) {
+                        return SliverGrid.builder(
+                            itemCount: filteredProduct.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 5,
+                              crossAxisSpacing: 5,
+                              childAspectRatio: 0.7,
+                            ),
+                            itemBuilder: (context, index) {
+                              return CardProduct(
+                                product: filteredProduct[index],
+                              );
+                            });
+                      }
+
+                      return SliverToBoxAdapter(
+                        child: Center(
+                          child: Text(
+                            'No Data Here',
+                            style: TextStyles.m.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).myColorTxt),
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 }
 
                 return SliverToBoxAdapter(

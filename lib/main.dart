@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kangsayur_mart/bloc_observer.dart';
 import 'package:kangsayur_mart/core/bloc/dashboard/dashboard_cubit.dart';
 import 'package:kangsayur_mart/core/bloc/product/product_bloc.dart';
+import 'package:kangsayur_mart/core/bloc/search/search_bloc.dart';
 import 'package:kangsayur_mart/core/bloc/theme/theme_cubit.dart';
 import 'package:kangsayur_mart/core/bloc/theme/theme_state.dart';
 import 'package:kangsayur_mart/ui/pages/dashboard/dashboard_page.dart';
@@ -20,6 +21,7 @@ void main() {
       BlocProvider(create: (_) => ThemeCubit()),
       BlocProvider(create: (_) => DashboardCubit()),
       BlocProvider(create: (_) => ProductBloc()),
+      BlocProvider(create: (_) => SearchBloc()),
     ],
     child: const MainApp(),
   ));

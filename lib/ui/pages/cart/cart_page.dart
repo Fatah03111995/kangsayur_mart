@@ -4,7 +4,6 @@ import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
 import 'package:kangsayur_mart/ui/generated_asset/assets.gen.dart';
-import 'package:kangsayur_mart/ui/pages/cart/widget/cart_item.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});

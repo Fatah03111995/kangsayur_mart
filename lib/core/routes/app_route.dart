@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kangsayur_mart/core/bloc/filter/filter_bloc.dart';
 import 'package:kangsayur_mart/core/models/page_entity.dart';
 import 'package:kangsayur_mart/core/routes/page_path.dart';
 import 'package:kangsayur_mart/ui/pages/home/home_page.dart';
@@ -12,7 +14,11 @@ class AppRoute {
           name: 'home',
           icon: CupertinoIcons.home,
           path: PagePath.home,
-          widget: const HomePage(),
+          widget: BlocProvider(
+            key: Key(PagePath.home),
+            create: (context) => FilterBloc(),
+            child: const HomePage(),
+          ),
         ),
         PageEntity(
             name: 'wishlist',
