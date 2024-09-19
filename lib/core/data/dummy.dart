@@ -1,14 +1,21 @@
 import 'package:kangsayur_mart/core/models/categories.dart';
 import 'package:kangsayur_mart/core/models/product_model.dart';
+import 'package:kangsayur_mart/core/models/user_model.dart';
 
 class Dummy {
+  static UserModel get user => UserModel(
+      userId: '01',
+      name: 'abdul fatah',
+      email: 'abdul@gmail.com',
+      password: '123',
+      wishlist: ['01', '03']);
   static final List<ProductModel> productsList = [
     ProductModel(
       productId: '01',
       name: 'Bayam',
       description: 'Bayam segar, langsung dari tangan petani',
       price: 2000,
-      stock: 10,
+      stock: 0,
       imageUrl: 'assets/dummy/bayam.jpg',
       category: Categories.vegtables,
       unit: 'pack',
