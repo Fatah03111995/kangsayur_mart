@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kangsayur_mart/core/bloc/wishlist/wishlist_bloc.dart';
 import 'package:kangsayur_mart/core/models/product_model.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
+import 'package:kangsayur_mart/ui/widgets/add_to_cart.dart';
 import 'package:kangsayur_mart/ui/widgets/rounded_rectangle_button.dart';
 
 class CardProduct extends StatelessWidget {
@@ -13,6 +16,7 @@ class CardProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isOutOfStock = product.stock == 0;
     return SizedBox(
       width: 170,
       child: Card(
@@ -20,12 +24,35 @@ class CardProduct extends StatelessWidget {
         color: Theme.of(context).myColorContainer,
         child: Column(
           children: [
-            Image.asset(
-              product.imageUrl,
+            Container(
               width: 170,
               height: 90,
-              fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(product.imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: isOutOfStock
+                  ? Container(
+                      width: 170,
+                      height: 90,
+                      alignment: Alignment.center,
+                      color: Colors.black.withOpacity(0.5),
+                      child: Text(
+                        'Out Of Stock',
+                        style: TextStyles.sm.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  : null,
             ),
+            // Image.asset(
+            //   product.imageUrl,
+            //   width: 170,
+            //   height: 90,
+            //   fit: BoxFit.cover,
+            // ),
             SizedBox(height: 5.h),
             Text(
               product.name,
@@ -80,7 +107,17 @@ class CardProduct extends StatelessWidget {
                 Expanded(
                   child: RoundedRectangleButton(
                       height: 30.h,
-                      onTap: () {},
+                      onTap: isOutOfStock
+                          ? null
+                          : () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return AddToCart(
+                                      product: product,
+                                    );
+                                  });
+                            },
                       color: MyColor.blue1,
                       child: const Icon(
                         CupertinoIcons.cart,
@@ -90,11 +127,29 @@ class CardProduct extends StatelessWidget {
                 Expanded(
                   child: RoundedRectangleButton(
                     height: 30.h,
-                    onTap: () {},
+                    onTap: () {
+                      context
+                          .read<WishlistBloc>()
+                          .add(Toggle(product: product));
+                    },
                     color: Theme.of(context).myColorContainer,
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.grey.withOpacity(0.5),
+                    child:
+                        BlocSelector<WishlistBloc, WishlistState, List<String>>(
+                      selector: (state) {
+                        if (state is WishlistSuccessed) {
+                          return state.productIds;
+                        } else {
+                          return [];
+                        }
+                      },
+                      builder: (context, wishlistIds) {
+                        return Icon(
+                          Icons.favorite,
+                          color: wishlistIds.contains(product.productId)
+                              ? Colors.red
+                              : Colors.grey,
+                        );
+                      },
                     ),
                   ),
                 ),

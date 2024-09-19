@@ -5,6 +5,7 @@ import 'package:kangsayur_mart/core/models/product_model.dart';
 import 'package:kangsayur_mart/core/themes/my_color.dart';
 import 'package:kangsayur_mart/core/themes/my_theme.dart';
 import 'package:kangsayur_mart/core/themes/text_styles.dart';
+import 'package:kangsayur_mart/ui/widgets/add_to_cart.dart';
 
 class CardProductSale extends StatelessWidget {
   final ProductModel product;
@@ -12,6 +13,7 @@ class CardProductSale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isOutOfStock = product.stock == 0;
     return SizedBox(
       width: 130,
       child: Card(
@@ -19,8 +21,29 @@ class CardProductSale extends StatelessWidget {
         color: Theme.of(context).myColorContainer,
         child: Column(
           children: [
-            Image.asset(product.imageUrl,
-                width: 130, height: 70, fit: BoxFit.cover),
+            Container(
+              width: 130,
+              height: 70,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(product.imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: isOutOfStock
+                  ? Container(
+                      width: 130,
+                      height: 70,
+                      alignment: Alignment.center,
+                      color: Colors.black.withOpacity(0.5),
+                      child: Text(
+                        'Out Of Stock',
+                        style: TextStyles.sm.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  : null,
+            ),
             Row(
               children: [
                 Expanded(
@@ -31,10 +54,20 @@ class CardProductSale extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
-                  style: const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.white),
-                      shape: WidgetStatePropertyAll(CircleBorder())),
+                  onPressed: isOutOfStock
+                      ? null
+                      : () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return AddToCart(product: product);
+                              });
+                        },
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(isOutOfStock
+                          ? Colors.white.withOpacity(0.5)
+                          : Colors.white),
+                      shape: const WidgetStatePropertyAll(CircleBorder())),
                   child: Icon(
                     CupertinoIcons.add,
                     color: MyColor.blue1,

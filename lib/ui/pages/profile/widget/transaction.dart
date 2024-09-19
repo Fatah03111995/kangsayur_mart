@@ -12,7 +12,6 @@ class Transaction extends StatelessWidget {
     List<ItemMenu> items = [
       const ItemMenu(name: 'Orders', icon: CupertinoIcons.bag),
       const ItemMenu(name: 'Transaction History', icon: CupertinoIcons.time),
-      const ItemMenu(name: 'Review', icon: CupertinoIcons.star)
     ];
     return Card(
       child: Column(

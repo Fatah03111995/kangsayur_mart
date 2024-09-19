@@ -8,6 +8,8 @@ import 'package:kangsayur_mart/core/bloc/product/product_bloc.dart';
 import 'package:kangsayur_mart/core/bloc/search/search_bloc.dart';
 import 'package:kangsayur_mart/core/bloc/theme/theme_cubit.dart';
 import 'package:kangsayur_mart/core/bloc/theme/theme_state.dart';
+import 'package:kangsayur_mart/core/bloc/wishlist/wishlist_bloc.dart';
+import 'package:kangsayur_mart/core/models/wishlist_model.dart';
 import 'package:kangsayur_mart/ui/pages/dashboard/dashboard_page.dart';
 
 void main() {
@@ -22,6 +24,7 @@ void main() {
       BlocProvider(create: (_) => DashboardCubit()),
       BlocProvider(create: (_) => ProductBloc()),
       BlocProvider(create: (_) => SearchBloc()),
+      BlocProvider(create: (_) => WishlistBloc()),
     ],
     child: const MainApp(),
   ));
@@ -32,6 +35,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Got Previous Data
+    context.read<WishlistBloc>().add(
+          LoadWishlist(
+            wishlist:
+                WishlistModel(wishlistId: '01', userId: '01', productIds: []),
+          ),
+        );
+
     return ScreenUtilInit(
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
